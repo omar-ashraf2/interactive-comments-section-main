@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Interactive comments section</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <!------ Comments List ------->
+      <ul class="commentsList" id="commentsList">
+        <!-- Comments -->
+        <div class="commentsContainer" id="commentsContainer"></div>
+        <!------ Reply ------->
+        <div class="replyContainer" id="replyContainer"></div>
+        <!------ Add Comment ------->
+        <li class="addComment">
+          <div class="imgContainer">
+            <img
+              class="replyAvatar"
+              src="./images/avatars/image-juliusomo.webp"
+              alt=""
+            />
+          </div>
+          <textarea
+            name="commentText"
+            id="commentText"
+            placeholder="Add a comment..."
+            rows="3"
+          ></textarea>
+          <button>SEND</button>
+        </li>
+      </ul>
+      <div class="modal-invisible">
+        <div class="modalContainer">
+          <h3>Delete Comment</h3>
+          <p>
+            Are you sure you want to delete this comment? This will remove the
+            comment and can't be undone
+          </p>
+          <div class="buttonsModal">
+            <button class="no">NO, CANCEL</button>
+            <button class="yes">YES, DELETE</button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
