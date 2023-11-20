@@ -4,6 +4,7 @@ const ul = document.getElementById("commentsList");
 const commentsList = document.getElementById("commentsContainer");
 let replyList = document.getElementById("replyContainer");
 
+
 let comments = data.comments;
 
 //Load Comments & Replies Data
@@ -138,33 +139,26 @@ ul.addEventListener("click", (e) => {
   let closestCommentBox = e.target.closest(".commentBox");
 
   if (replyClicked) {
-    replyList.innerHTML = "";
+    let li = document.createElement("li");
+    li.innerHTML = "";
     if (replyList != "") {
       // Creating Li
-      let li = document.createElement("li");
       li.setAttribute("class", "replyBox addComment");
-      // Append the avatar
-      let imgContainer = document.createElement("div");
-      imgContainer.setAttribute("class", "imgContainer");
-      let img = document.createElement("img");
-      img.setAttribute("class", "replyAvatar");
-      img.src = "./images/avatars/image-juliusomo.webp";
-      imgContainer.appendChild(img);
-      li.appendChild(imgContainer);
-
-      //Append the textarea
-      let text = document.createElement("textarea");
-      text.name = "commentText";
-      text.classList = "commentText";
-      text.placeholder = "Add a comment...";
-      text.rows = "3";
-      li.appendChild(text);
-
-      //Append the reply button
-      let replyButton = document.createElement("button");
-      replyButton.innerText = "SEND";
-      replyButton.setAttribute("class", "submit");
-      li.appendChild(replyButton);
+      li.innerHTML += `<div class="imgContainer">
+      <img
+        class="replyAvatar"
+        src="./images/avatars/image-juliusomo.webp"
+        alt=""
+      />
+    </div>
+    <textarea
+      name="commentText"
+      class="commentText"
+      placeholder="Add a comment..."
+      rows="3"
+      required
+    ></textarea>
+    <button class="submit">SEND</button>`;
 
       //Append in UL
       replyList.appendChild(li);
@@ -175,7 +169,11 @@ ul.addEventListener("click", (e) => {
   if (submitClicked) {
     let closestReplyBox = e.target.closest(".replyBox");
     let inputText = closestReplyBox.children[1].value;
-    closestCommentBox.appendChild(addReply(inputText));
-    closestReplyBox.remove();
+    if (inputText != "") {
+      closestCommentBox.appendChild(addReply(inputText));
+      closestReplyBox.remove();
+    }
   }
 });
+
+//Add a comment
