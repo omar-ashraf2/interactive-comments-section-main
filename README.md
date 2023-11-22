@@ -23,4 +23,4 @@ Your users should be able to:
 
 ## Deploy
 
-- [Live Demo](https://www.netlify.com/)
+- [Live Demo](https://interactive-comments-section-chall.netlify.app/)
