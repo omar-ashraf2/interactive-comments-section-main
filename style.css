@@ -75,6 +75,7 @@ ul {
   padding: 20px;
   border-radius: 10px;
   display: flex;
+  flex-direction: row !important;
   gap: 20px;
 }
 .commentBox {
@@ -122,8 +123,6 @@ ul {
   max-width: 100%;
 }
 /**** Add Reply ****/
-.addReply {
-}
 .replyContainer {
   display: flex;
   flex-direction: column;
@@ -178,7 +177,7 @@ ul {
   width: 45px;
   height: 45px;
 }
-.addComment textarea {
+.textarea {
   width: 100%;
   border: 1px solid var(--Light-gray);
   resize: none;
@@ -188,15 +187,19 @@ ul {
   color: var(--Grayish-Blue);
   font-weight: 500;
   outline: none;
+  margin-bottom: 10px;
 }
-.addComment button {
+.submitButton,
+.submit,
+.addNewComment {
   padding: 10px 30px;
-  height: 50px;
+  height: 40px;
   border-radius: 10px;
   font-weight: 600;
   background-color: var(--moderate-blue);
   color: var(--White);
   font-size: 16px;
+  float: right;
 }
 /* Modal */
 .modal-invisible {

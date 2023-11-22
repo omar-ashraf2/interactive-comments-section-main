@@ -19,7 +19,7 @@
         <!-- Comments -->
         <div class="commentsContainer" id="commentsContainer"></div>
         <!------ Reply ------->
-        <div class="replyContainer" id="replyContainer"></div>
+        <div class="replyContainer commentBox" id="replyContainer"></div>
         <!------ Add Comment ------->
         <li class="addComment">
           <div class="imgContainer">
@@ -31,11 +31,12 @@
           </div>
           <textarea
             name="commentText"
+            class="textarea"
             id="commentText"
             placeholder="Add a comment..."
             rows="3"
           ></textarea>
-          <button class="submit">SEND</button>
+          <button class="addNewComment">SEND</button>
         </li>
       </ul>
       <div class="modal-invisible">
