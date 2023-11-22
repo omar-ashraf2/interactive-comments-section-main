@@ -161,13 +161,6 @@ ul {
   font-weight: 500;
 }
 /**** Add Comment ****/
-/* .addCommentContainer {
-  position: fixed;
-  z-index: 10;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-} */
 .addComment {
   background-color: var(--White);
   padding: 20px;
@@ -229,7 +222,7 @@ ul {
   transform: translate(-50%, -50%);
   background-color: var(--White);
   width: 400px;
-  border-radius: 10px;
+  border-radius: 10px;  transition: all 0.3s ease-in-out;
 }
 .modalContainer h3 {
   font-size: 24px;

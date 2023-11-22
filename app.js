@@ -3,6 +3,9 @@ import data from "./data.json" assert { type: "json" };
 const ul = document.getElementById("commentsList");
 const commentsList = document.getElementById("commentsContainer");
 let replyList = document.getElementById("replyContainer");
+let modal = document.getElementById("modal-invisible");
+let yesDelete = document.querySelector(".yes");
+let noCancel = document.querySelector(".no");
 let comments = data.comments;
 
 //Load Comments & Replies Data
@@ -80,7 +83,7 @@ const readComments = () => {
                 </div>
                 ${
                   replyUsername === "juliusomo"
-                    ? '<div class="editButtons"> <button class="replyButton reply danger"> <img src="./images/icon-delete.svg" alt="" /> Delete</button> <button class="replyButton edit"> <img src="./images/icon-edit.svg" alt="" /> Edit</button> </div>'
+                    ? '<div class="editButtons"> <button class="replyButton danger"> <img src="./images/icon-delete.svg" alt="" /> Delete</button> <button class="replyButton edit"> <img src="./images/icon-edit.svg" alt="" /> Edit</button> </div>'
                     : '<button class="replyButton reply" id="replyButton"> <img src="./images/icon-reply.svg" alt="" /> Reply</button>'
                 }
               </div>
@@ -138,18 +141,20 @@ ul.addEventListener("click", (e) => {
   const replyClicked = e.target.classList.contains("reply");
   const submitClicked = e.target.classList.contains("submit");
   const editClicked = e.target.classList.contains("edit");
+  const deleteClicked = e.target.classList.contains("danger");
   const updateClicked = e.target.classList.contains("submitButton");
   let closestCommentBox = e.target.closest(".commentBox");
   let closestReply = e.target.closest(".replyBox");
+  let closestReplyContainer = e.target.closest(".commentBoxContainer");
   const addNewComment = e.target.classList.contains("addNewComment");
 
   if (replyClicked) {
     // Creating Li & Container
     let div = document.createElement("div");
     div.setAttribute("class", "replyContainer");
-    if (closestCommentBox.children.length > 1) {
-      console.log(closestCommentBox.children);
-    }
+    // if (closestCommentBox.children.length > 1) {
+    //   console.log(closestCommentBox.children);
+    // }
     let li = document.createElement("li");
     li.setAttribute("class", "replyBox addComment");
     li.innerHTML += `<div class="imgContainer">
@@ -222,13 +227,13 @@ ul.addEventListener("click", (e) => {
           <h4>juliusomo <span class="you">you</span></h4>
           <span>Just Now</span>
         </div>
-        <div class="editButtons"> <button class="replyButton reply danger"> <img src="./images/icon-delete.svg" alt=""> Delete</button> <button class="replyButton edit"> <img src="./images/icon-edit.svg" alt=""> Edit</button> </div>
+        <div class="editButtons"> <button class="replyButton danger"> <img src="./images/icon-delete.svg" alt=""> Delete</button> <button class="replyButton edit"> <img src="./images/icon-edit.svg" alt=""> Edit</button> </div>
       </div>
       <div class="bottomSection">
         <p class="content">${text}</p>
       </div>
     </div>`;
-  
+
     return div;
   }
 
@@ -236,5 +241,17 @@ ul.addEventListener("click", (e) => {
     let addCommentContainer = e.target.closest(".addComment");
     let commentValue = addCommentContainer.querySelector(".textarea").value;
     ul.appendChild(addComment(commentValue));
+  }
+  function handleYes() {
+    closestReplyContainer.remove();
+    modal.style.display = "none";
+  }
+  function handleNo() {
+    modal.style.display = "none";
+  }
+  if (deleteClicked) {
+    modal.style.display = "block";
+    yesDelete.addEventListener("click", () => handleYes());
+    noCancel.addEventListener("click", () => handleNo());
   }
 });
