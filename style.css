@@ -14,6 +14,18 @@
   --Very-light-gray: hsl(228, 33%, 97%);
   --White: hsl(0, 0%, 100%);
 }
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 * {
   padding: 0;
   margin: 0;
@@ -23,18 +35,24 @@ body {
   font-family: "Rubik", sans-serif;
   background-color: var(--Very-light-gray);
 }
+a {
+  color: red;
+}
 button {
   border: none;
   cursor: pointer;
-}
-a {
-  text-decoration: none;
+  transition: all 0.3s;
 }
 .replyButton {
   background-color: inherit;
   color: var(--moderate-blue);
   font-size: 16px;
   font-weight: 700;
+}
+.replyButton:hover,
+.submit:hover,
+.addNewComment:hover {
+  opacity: 0.5;
 }
 .avatar {
   object-fit: cover;
@@ -65,11 +83,6 @@ ul {
   flex-direction: column;
   gap: 20px;
 }
-/* @media only screen and (max-width: 375px) {
-  .commentsList {
-    width: 400px;
-  }
-} */
 .commentBoxContainer {
   background-color: var(--White);
   padding: 20px;
@@ -98,6 +111,22 @@ ul {
   width: 100%;
   height: 100%;
   background: transparent;
+  transition: 0.3s;
+}
+.vote .upVote {
+  background-image: url("./images/icon-plus.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.vote .downVote {
+  background-image: url("./images/icon-minus.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.vote .upVote:hover,
+.vote .downVote:hover {
+  filter: invert(35%) sepia(59%) saturate(844%) hue-rotate(204deg)
+    brightness(86%) contrast(88%);
 }
 .vote span {
   color: var(--moderate-blue);
@@ -165,6 +194,7 @@ ul {
   padding: 2px 4px;
   font-weight: 500;
 }
+
 /**** Add Comment ****/
 .addComment {
   background-color: var(--White);
@@ -186,6 +216,7 @@ ul {
   width: 100%;
   border: 1px solid var(--Light-gray);
   resize: none;
+  overflow: auto;
   border-radius: 10px;
   padding: 15px;
   font-size: 16px;
@@ -193,6 +224,9 @@ ul {
   font-weight: 500;
   outline: none;
   margin-bottom: 10px;
+}
+.textarea:focus {
+  border: 1px solid var(--moderate-blue);
 }
 .submitButton,
 .submit,
@@ -218,6 +252,7 @@ ul {
   right: 0;
   bottom: 0;
   z-index: 5;
+  transition: all 0.3s ease-in-out;
 }
 .modalContainer {
   position: absolute;
@@ -228,7 +263,6 @@ ul {
   background-color: var(--White);
   width: 400px;
   border-radius: 10px;
-  transition: all 0.3s ease-in-out;
 }
 .modalContainer h3 {
   font-size: 24px;
@@ -256,4 +290,68 @@ ul {
 }
 .modalContainer .no {
   background-color: var(--Grayish-Blue);
+}
+@media only screen and (max-width: 740px) {
+  .replyContainer {
+    align-items: end;
+  }
+  .replyContainer li {
+    width: 90%;
+  }
+  .replyContainer::before {
+    left: 12px;
+  }
+}
+@media only screen and (max-width: 460px) {
+  .commentBoxContainer {
+    position: relative;
+    flex-direction: column-reverse !important;
+  }
+  .vote {
+    flex-direction: row;
+    height: 40px;
+    width: 90px;
+  }
+  .topSection {
+    flex-direction: column;
+  }
+  .userInfo {
+    gap: 5px;
+  }
+  .userInfo img {
+    margin-right: 15px;
+  }
+  .userInfo h4 {
+    font-size: 14px;
+  }
+  .replyButton,
+  .submitButton,
+  .addNewComment,
+  .submit {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 14px !important;
+  }
+  .danger {
+    right: 70px;
+  }
+  p,
+  span {
+    font-size: 14px;
+  }
+  .addComment {
+    position: relative;
+    flex-direction: column-reverse;
+  }
+  .modalContainer {
+    width: 300px;
+  }
+  .modalContainer h3 {
+    font-size: 18px;
+  }
+  .modalContainer button {
+    font-size: 13px;
+    padding: 10px 15px;
+  }
 }

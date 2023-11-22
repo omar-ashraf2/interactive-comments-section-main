@@ -27,9 +27,9 @@ const readComments = () => {
       listOfComments = `
       <div class="commentBoxContainer">
         <div class="vote">
-          <button class="upVote"><img src="./images/icon-plus.svg" alt="" /></button>
+          <button class="upVote"></button>
           <span class="score">${score}</span>
-          <button class="downVote"><img src="./images/icon-minus.svg" alt="" /></button>
+          <button class="downVote"></button>
         </div>
           <div class="comment">
           <div class="topSection">
@@ -64,9 +64,9 @@ const readComments = () => {
         const repliesList = document.createElement("li");
         listOfReplies = `
           <div class="vote">
-            <button class="upVote"><img src="./images/icon-plus.svg" alt="" /></button>
+            <button class="upVote"></button>
             <span class="score">${score}</span>
-            <button class="downVote"><img src="./images/icon-minus.svg" alt="" /></button>
+            <button class="downVote"></button>
             </div>
             <div class="comment">
               <div class="topSection">
@@ -125,9 +125,9 @@ ul.addEventListener("click", (e) => {
     newReply.setAttribute("class", "commentBoxContainer replyBox");
 
     newReply.innerHTML += `<div class="vote">
-      <button class="upVote"><img src="./images/icon-plus.svg" alt="" /></button>
+      <button class="upVote"></button>
       <span class="score">0</span>
-      <button class="downVote"><img src="./images/icon-minus.svg" alt="" /></button>
+      <button class="downVote"></button>
     </div>
     <div class="comment">
       <div class="topSection">
