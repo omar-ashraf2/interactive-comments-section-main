@@ -207,8 +207,34 @@ ul.addEventListener("click", (e) => {
     textArea.remove();
   }
 
-  if (addNewComment) {
-    console.log("Hi");
+  function addComment(text) {
+    let div = document.createElement("div");
+    div.setAttribute("class", "commentBoxContainer");
+    div.innerHTML += `<div class="vote">
+      <a href="#"><img src="./images/icon-plus.svg" alt=""></a>
+      <span>5</span>
+      <a href="#"><img src="./images/icon-minus.svg" alt=""></a>
+    </div>
+      <div class="comment">
+      <div class="topSection">
+        <div class="userInfo">
+          <img class="avatar" src="./images/avatars/image-juliusomo.webp" alt="">
+          <h4>juliusomo <span class="you">you</span></h4>
+          <span>Just Now</span>
+        </div>
+        <div class="editButtons"> <button class="replyButton reply danger"> <img src="./images/icon-delete.svg" alt=""> Delete</button> <button class="replyButton edit"> <img src="./images/icon-edit.svg" alt=""> Edit</button> </div>
+      </div>
+      <div class="bottomSection">
+        <p class="content">${text}</p>
+      </div>
+    </div>`;
+  
+    return div;
   }
 
+  if (addNewComment) {
+    let addCommentContainer = e.target.closest(".addComment");
+    let commentValue = addCommentContainer.querySelector(".textarea").value;
+    ul.appendChild(addComment(commentValue));
+  }
 });
