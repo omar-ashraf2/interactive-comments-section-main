@@ -27,9 +27,9 @@ const readComments = () => {
       listOfComments = `
       <div class="commentBoxContainer">
         <div class="vote">
-          <a href="#"><img src="./images/icon-plus.svg" alt="" /></a>
-          <span>${score}</span>
-          <a href="#"><img src="./images/icon-minus.svg" alt="" /></a>
+          <button class="upVote"><img src="./images/icon-plus.svg" alt="" /></button>
+          <span class="score">${score}</span>
+          <button class="downVote"><img src="./images/icon-minus.svg" alt="" /></button>
         </div>
           <div class="comment">
           <div class="topSection">
@@ -64,9 +64,9 @@ const readComments = () => {
         const repliesList = document.createElement("li");
         listOfReplies = `
           <div class="vote">
-            <a href="#"><img src="./images/icon-plus.svg" alt="" /></a>
-            <span>${score}</span>
-            <a href="#"><img src="./images/icon-minus.svg" alt="" /></a>
+            <button class="upVote"><img src="./images/icon-plus.svg" alt="" /></button>
+            <span class="score">${score}</span>
+            <button class="downVote"><img src="./images/icon-minus.svg" alt="" /></button>
             </div>
             <div class="comment">
               <div class="topSection">
@@ -103,41 +103,11 @@ const readComments = () => {
 };
 readComments();
 
-function addReply(text) {
-  let div = document.createElement("div");
-  div.setAttribute("class", "replyContainer");
-  const newReply = document.createElement("li");
-  newReply.setAttribute("class", "commentBoxContainer replyBox");
-
-  newReply.innerHTML += `<div class="vote">
-    <a href="#"><img src="./images/icon-plus.svg" alt="" /></a>
-    <span>5</span>
-    <a href="#"><img src="./images/icon-minus.svg" alt="" /></a>
-  </div>
-  <div class="comment">
-    <div class="topSection">
-      <div class="userInfo">
-        <img
-          class="avatar"
-          src="./images/avatars/image-juliusomo.png"
-          alt=""/>
-          <h4>juliusomo <span class="you">you</span></h4>
-          <span>Just Now</span>
-      </div>
-      <div class="editButtons"> <button class="replyButton danger"> <img src="./images/icon-delete.svg" alt="" /> Delete</button> <button class="replyButton edit"> <img src="./images/icon-edit.svg" alt="" /> Edit</button> </div>
-    </div>
-    <div class="bottomSection">
-        <p class="content">
-          ${text}
-        </p>
-    </div>
-  </div>`;
-
-  div.appendChild(newReply);
-  return div;
-}
-
 ul.addEventListener("click", (e) => {
+  const upVote = e.target.classList.contains("upVote");
+  const downVote = e.target.classList.contains("downVote");
+  let score = e.target.closest(".vote");
+
   const replyClicked = e.target.classList.contains("reply");
   const submitClicked = e.target.classList.contains("submit");
   const editClicked = e.target.classList.contains("edit");
@@ -148,6 +118,39 @@ ul.addEventListener("click", (e) => {
   let closestReplyContainer = e.target.closest(".commentBoxContainer");
   const addNewComment = e.target.classList.contains("addNewComment");
 
+  function addReply(text) {
+    let div = document.createElement("div");
+    div.setAttribute("class", "replyContainer");
+    const newReply = document.createElement("li");
+    newReply.setAttribute("class", "commentBoxContainer replyBox");
+
+    newReply.innerHTML += `<div class="vote">
+      <button class="upVote"><img src="./images/icon-plus.svg" alt="" /></button>
+      <span class="score">0</span>
+      <button class="downVote"><img src="./images/icon-minus.svg" alt="" /></button>
+    </div>
+    <div class="comment">
+      <div class="topSection">
+        <div class="userInfo">
+          <img
+            class="avatar"
+            src="./images/avatars/image-juliusomo.png"
+            alt=""/>
+            <h4>juliusomo <span class="you">you</span></h4>
+            <span>Just Now</span>
+        </div>
+        <div class="editButtons"> <button class="replyButton danger"> <img src="./images/icon-delete.svg" alt="" /> Delete</button> <button class="replyButton edit"> <img src="./images/icon-edit.svg" alt="" /> Edit</button> </div>
+      </div>
+      <div class="bottomSection">
+          <p class="content">
+            ${text}
+          </p>
+      </div>
+    </div>`;
+
+    div.appendChild(newReply);
+    return div;
+  }
   if (replyClicked) {
     // Creating Li & Container
     let div = document.createElement("div");
@@ -214,11 +217,11 @@ ul.addEventListener("click", (e) => {
 
   function addComment(text) {
     let div = document.createElement("div");
-    div.setAttribute("class", "commentBoxContainer");
+    div.setAttribute("class", "commentBoxContainer replyBox");
     div.innerHTML += `<div class="vote">
-      <a href="#"><img src="./images/icon-plus.svg" alt=""></a>
-      <span>5</span>
-      <a href="#"><img src="./images/icon-minus.svg" alt=""></a>
+      <button class="upVote" ><img src="./images/icon-plus.svg" alt=""></button>
+      <span class="score">0</span>
+      <button class="downVote" ><img src="./images/icon-minus.svg" alt=""></button>
     </div>
       <div class="comment">
       <div class="topSection">
@@ -233,14 +236,19 @@ ul.addEventListener("click", (e) => {
         <p class="content">${text}</p>
       </div>
     </div>`;
-
+    document.querySelector(".textarea").value = "";
     return div;
   }
-
   if (addNewComment) {
     let addCommentContainer = e.target.closest(".addComment");
     let commentValue = addCommentContainer.querySelector(".textarea").value;
-    ul.appendChild(addComment(commentValue));
+    if (commentValue === "") {
+      addCommentContainer
+        .querySelector(".textarea")
+        .setAttribute("placeholder", "This field is required");
+    } else {
+      ul.appendChild(addComment(commentValue));
+    }
   }
   function handleYes() {
     closestReplyContainer.remove();
@@ -253,5 +261,24 @@ ul.addEventListener("click", (e) => {
     modal.style.display = "block";
     yesDelete.addEventListener("click", () => handleYes());
     noCancel.addEventListener("click", () => handleNo());
+  }
+
+  function handleUpVote(number) {
+    let currentScore = score.querySelector(".score");
+    currentScore.innerHTML = ++number;
+    return currentScore;
+  }
+  function handleDownVote(number) {
+    let currentScore = score.querySelector(".score");
+    if (currentScore.innerHTML > 0) {
+      currentScore.innerHTML = --number;
+    }
+    return currentScore;
+  }
+  if (upVote) {
+    handleUpVote(score.children[1].innerHTML);
+  }
+  if (downVote) {
+    handleDownVote(score.children[1].innerHTML);
   }
 });
